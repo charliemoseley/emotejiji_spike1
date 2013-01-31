@@ -1,5 +1,6 @@
 source "http://rubygems.org"
 
-gem "rack"
-gem "grape"
-gem "json"
+gem 'trinidad'
+gem 'grape'
+gem 'json'
+gem 'neo4j-wrapper'
