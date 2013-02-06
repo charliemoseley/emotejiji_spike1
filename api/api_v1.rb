@@ -1,6 +1,6 @@
 module Emotejiji
   class API_v1 < Grape::API
-    version 'v1', :using => :path, :vendor => 'emotejiji', :format => :json
+    version 'v1', using: :path, vendor: 'emotejiji', format: :json
     rescue_from :all do |e|
       Rack::Response.new([ e.message ], 500, { "Content-type" => "text/error" }).finish
     end
