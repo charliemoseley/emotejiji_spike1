@@ -8,6 +8,7 @@ GEM
     builder (3.1.4)
     coderay (1.0.8)
     descendants_tracker (0.0.1)
+    diff-lcs (1.1.3)
     grape (0.2.6)
       activesupport
       builder
@@ -33,6 +34,10 @@ GEM
     neo4j-cypher (1.0.0)
     neo4j-wrapper (2.2.3-java)
       neo4j-core (= 2.2.3)
+    pry (0.9.11.4)
+      coderay (~> 1.0.5)
+      method_source (~> 0.8)
+      slop (~> 3.4)
     pry (0.9.11.4-java)
       coderay (~> 1.0.5)
       method_source (~> 0.8)
@@ -45,6 +50,14 @@ GEM
       rack (>= 1.0.0)
     rack-test (0.6.2)
       rack (>= 1.0)
+    rspec (2.12.0)
+      rspec-core (~> 2.12.0)
+      rspec-expectations (~> 2.12.0)
+      rspec-mocks (~> 2.12.0)
+    rspec-core (2.12.2)
+    rspec-expectations (2.12.1)
+      diff-lcs (~> 1.1.3)
+    rspec-mocks (2.12.2)
     slop (3.4.3)
     spoon (0.0.1)
     trinidad (1.4.4)
@@ -64,4 +77,5 @@ DEPENDENCIES
   neo4j-wrapper
   pry
   rack-test
+  rspec
   trinidad
