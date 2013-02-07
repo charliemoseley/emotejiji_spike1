@@ -18,6 +18,40 @@ describe "Neo4j::Emoticon" do
     emoticon.uid.should == "foobar"
   end
   
+  describe "private methods" do
+    it "should count the number of lines in a single line emoticon" do
+      params = { text: "the foorbar jumped over the moon" }
+      lines = params[:text].lines.count
+      
+      emoticon = Emoticon.new params
+      emoticon.number_of_lines.should == lines
+    end
+    
+    it "should count the number of lines for a multi line emoticon" do
+      params = { text: "the foorbar\njumped over the moon\nto jupitar" }
+      lines = params[:text].lines.count
+      
+      emoticon = Emoticon.new params
+      emoticon.number_of_lines.should == lines
+    end
+    
+    it "should be able to count the longest line in a single line emoticon" do
+      params = { text: "the foorbar jumped over the moon" }
+      longest_line = params[:text].lines.map { |line| line.length }.max
+      
+      emoticon = Emoticon.new params
+      emoticon.longest_line_count.should == longest_line
+    end
+    
+    it "should be able to count the longest line in a multi line emoticon" do
+      params = { text: "the foorbar\njumped over the moon\nto jupitar" }
+      longest_line = params[:text].lines.map { |line| line.length }.max
+      
+      emoticon = Emoticon.new params
+      emoticon.longest_line_count.should == longest_line
+    end
+  end
+  
   after :each do
     end_transaction
   end
