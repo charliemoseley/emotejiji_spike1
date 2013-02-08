@@ -21,8 +21,10 @@ module Emotejiji
       
       post '/' do
         Neo4j::Transaction.run do
-          Emoticon.new params
+          @emoticon = Emoticon.new params
         end
+        
+        present @emoticon, with: Emotejiji::Entities::Emoticon
       end
     end
   end

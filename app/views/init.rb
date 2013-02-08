@@ -1,0 +1,1 @@
+require_relative 'emoticon_entity'

@@ -2,6 +2,7 @@ source "http://rubygems.org"
 
 gem 'trinidad'
 gem 'grape'
+gem 'grape-entity'
 gem 'json'
 gem 'neo4j-wrapper'
 
