@@ -28,11 +28,15 @@ RSpec.configure do |config|
     FileUtils.rm_rf Neo4j::Config[:storage_path]
   end
 
-  config.after(:each, type: :integration) do
-    Neo4j::Transaction.run do
-      Neo4j.threadlocal_ref_node = Neo4j::Node.new name: "ref_#{$name_counter}"
-      $name_counter += 1
-    end
+  config.before(:all, type: :mock_db) do
+    Neo4j.shutdown
+    Neo4j::Core::Database.default_embedded_db= MockDb
+    Neo4j.start
+  end
+
+  config.after(:all, type: :mock_db) do
+    Neo4j.shutdown
+    Neo4j::Core::Database.default_embedded_db = nil
   end
 end
 
