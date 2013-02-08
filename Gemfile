@@ -5,6 +5,10 @@ gem 'grape'
 gem 'json'
 gem 'neo4j-wrapper'
 
+# uuid generation
+gem 'uuidtools'
+gem 'base32_pure'
+
 group :console do
   gem 'pry'
   gem 'rack-test'
