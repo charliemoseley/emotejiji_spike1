@@ -32,4 +32,28 @@ describe "Emotejiji::API::Emoticons" do
       end
     end
   end
+  
+  describe "PUT" do
+    descibe "/v1/emoticons/:uid/" do
+      specify "should assign tags to an emoticon" do
+        start_transaction
+        emoticon = Emoticon.new text: "foobaz"
+        end_transaction
+        
+        params = { tags: ["foo", "bar"] }
+        put "/v1/emoticons/#{emoticon.uid}"
+        # Finish implementing this when a bit closer
+      end
+      
+      specify "should update the emoticon" do
+        start_transaction
+        emoticon = Emoticon.new text: "foobaz"
+        end_transaction
+        
+        params = { description: "Awesome yoh!" }
+        put "/v1/emoticons/#{emoticon.uid}"
+        # Finish implementing this when a bit closer
+      end
+    end
+  end
 end
