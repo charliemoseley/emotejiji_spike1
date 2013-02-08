@@ -1,19 +1,11 @@
-$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'api'))
-$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'app'))
-$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'models'))
-$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'relationships'))
-$LOAD_PATH.unshift(File.dirname(__FILE__))
+ENV['RACK_ENV'] ||= 'test'
 
-require 'boot'
+require 'rubygems'
+require 'bundler/setup'
 
 Bundler.require :default, ENV['RACK_ENV']
 
-Dir[File.expand_path('../../api/api_v*.rb', __FILE__)].each do |f|
-  require f
-end
+$LOAD_PATH.unshift *Dir.glob(File.expand_path("../../app/**", __FILE__))
+$LOAD_PATH.unshift *Dir.glob(File.expand_path("../../app/**/**", __FILE__))
 
-require 'models/init'
-require 'relationships/init'
-require 'api'
-require 'emotejiji_app'
-
+require 'app/emotejiji_app'

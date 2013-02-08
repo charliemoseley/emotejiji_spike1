@@ -1,3 +1,7 @@
+require 'app/models/init'
+require 'app/relationships/init'
+require 'app/api/init'
+
 module Emotejiji
   class App
     def initialize

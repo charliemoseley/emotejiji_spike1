@@ -3,8 +3,7 @@ ENV['RACK_ENV'] = "test"
 # Load up rspec and Emotejiji
 require 'rspec'
 require 'rack/test'
-require File.expand_path('../../config/environment', __FILE__)
-require 'application'
+require File.expand_path('../../config/application', __FILE__)
 
 RSpec.configure do |config|
   config.mock_with :rspec
