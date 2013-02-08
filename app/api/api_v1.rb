@@ -19,9 +19,15 @@ module Emotejiji
     resource :emoticons do
       desc "Returns emoticons."
       
+      get '/:uid' do
+        @emoticon = Emoticon.find(uid: params[:uid]).first
+        
+        present @emoticon, with: Emotejiji::Entities::Emoticon
+      end
+      
       post '/' do
         Neo4j::Transaction.run do
-          @emoticon = Emoticon.new params
+          @emoticon = Emoticon.new params[:text], params[:description]
         end
         
         present @emoticon, with: Emotejiji::Entities::Emoticon

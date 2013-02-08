@@ -9,14 +9,16 @@ class Emoticon
   
   rule :all, functions: [Neo4j::Wrapper::Rule::Functions::Size.new]
   
-  def init_on_create(*args)
+  def init_on_create(text, description = '')
     self[:uid] = generate_uid
-    if args.last.is_a? Hash
-      self[:text] = args.last[:text]
-      self[:description] = args.last[:description]
-      self[:number_of_lines] = count_number_of_lines args.last[:text]
-      self[:longest_line_count] = count_longest_line args.last[:text]
-    end
+    self[:text] = text
+    self[:description] = description
+    self[:number_of_lines] = count_number_of_lines_in text
+    self[:longest_line_count] = count_longest_line_in text
+    # Doesn't seem to properly 'save'.  Generates an object, but doesn't seem
+    # to either persist it or just not run the index building unless super is
+    # called
+    super
   end
   
   private
@@ -25,11 +27,11 @@ class Emoticon
     Base32::Crockford.encode(UUIDTools::UUID.random_create.raw).downcase[0..9]
   end
     
-  def count_number_of_lines(text)
+  def count_number_of_lines_in(text)
     text.lines.count unless text.nil?
   end
   
-  def count_longest_line(text)
+  def count_longest_line_in(text)
     text.lines.map { |line| line.length }.max unless text.nil?
   end
 end

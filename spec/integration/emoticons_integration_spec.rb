@@ -1,6 +1,22 @@
 require 'spec_helper'
 
 describe "Emotejiji::API::Emoticons" do
+  describe "GET" do
+    specify "/v1/emoticons/:uid" do
+      start_transaction
+      emoticon = Emoticon.new "foobaz"
+      end_transaction
+      get "/v1/emoticons/#{emoticon.uid}"
+      
+      last_response.status.should == 200
+      hash = JSON.parse(last_response.body)
+      hash["text"].should == emoticon.text
+      hash["description"].should == emoticon.description
+      hash["number_of_lines"].should == emoticon.number_of_lines
+      hash["longest_line_count"].should == emoticon.longest_line_count
+    end
+  end
+  
   describe "POST" do
     describe "/v1/emoticons" do
       specify "should succeed and persist with valid params" do
