@@ -25,6 +25,10 @@ class Emoticon
     super
   end
   
+  def self.find_by_uid(uid)
+    Emoticon.find(uid: uid).first
+  end
+  
   private
   
   def generate_uid

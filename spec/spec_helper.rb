@@ -69,3 +69,19 @@ def failed_transaction_cleanup
   @tx.finish
   @tx = nil
 end
+
+def delete_all_created_nodes
+  # This method is used specifically when we need to test node counts; it's 
+  # probably time consuming, so no point in runnning it if you don't need to be
+  # testing counts.
+  
+  # This works by assuming every node we created has the ability to respond to
+  # uids and then deletes them.  This way Neo4j wont blow up by accidently delete
+  # the origin node.
+  nodes = Neo4j.query{ node("*") }.to_a
+  Neo4j::Transaction.run do
+    nodes.each do |node|
+      node[:v1].del if node[:v1].respond_to? :uid
+    end
+  end
+end
