@@ -9,12 +9,16 @@ class Emoticon
   
   rule :all, functions: [Neo4j::Wrapper::Rule::Functions::Size.new]
   
-  def init_on_create(text, description = '')
+  def init_on_create(params = {})
+    raise "params[:text] required" if params[:text].nil?
     self[:uid] = generate_uid
-    self[:text] = text
-    self[:description] = description
-    self[:number_of_lines] = count_number_of_lines_in text
-    self[:longest_line_count] = count_longest_line_in text
+    self[:text] = params[:text]
+    self[:description] = params[:description] || ""
+    self[:number_of_lines] = count_number_of_lines_in params[:text]
+    self[:longest_line_count] = count_longest_line_in params[:text]
+    # Destroy the old params to prevent anything being passed in from being
+    # assigned by the super call below
+    params = nil
     # Doesn't seem to properly 'save'.  Generates an object, but doesn't seem
     # to either persist it or just not run the index building unless super is
     # called

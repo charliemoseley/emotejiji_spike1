@@ -4,7 +4,7 @@ describe "Emotejiji::API::Emoticons" do
   describe "GET" do
     specify "/v1/emoticons/:uid" do
       start_transaction
-      emoticon = Emoticon.new "foobaz"
+      emoticon = Emoticon.new text: "foobaz"
       end_transaction
       get "/v1/emoticons/#{emoticon.uid}"
       
