@@ -19,6 +19,23 @@ module Emotejiji
         end
         present @emoticon, with: Emotejiji::Entities::Emoticon
       end
+      
+      put '/:uid' do
+        valid_params = {}
+        valid_params[:text] = params.text if params.text
+        valid_params[:description] = params.description if params.description
+        valid_params[:tags] = params.tags if params.tags
+        
+        Neo4j::Transaction.run do
+          @emoticon = Emoticon.find_by_uid params.uid
+          @emoticon.update valid_params
+          # TODO: Move this into emoticon's create/update method?
+          if valid_params[:tags]
+            valid_params[:tags].each { |tag| @emoticon.tags << Tag.new(text: tag) }
+          end
+        end
+        present @emoticon, with: Emotejiji::Entities::Emoticon
+      end
     end
     
     resource :tags do

@@ -34,15 +34,20 @@ describe "Emotejiji::API::Emoticons" do
   end
   
   describe "PUT" do
-    descibe "/v1/emoticons/:uid/" do
+    describe "/v1/emoticons/:uid/" do
       specify "should assign tags to an emoticon" do
         start_transaction
         emoticon = Emoticon.new text: "foobaz"
         end_transaction
         
         params = { tags: ["foo", "bar"] }
-        put "/v1/emoticons/#{emoticon.uid}"
-        # Finish implementing this when a bit closer
+        put "/v1/emoticons/#{emoticon.uid}", params
+        
+        last_response.status.should == 200
+        hash = JSON.parse(last_response.body)
+        hash["uid"].should == emoticon.uid
+        ["foo", "bar"].include?(hash["tags"][0]["text"]).should be_true
+        ["foo", "bar"].include?(hash["tags"][1]["text"]).should be_true
       end
       
       specify "should update the emoticon" do
@@ -50,9 +55,13 @@ describe "Emotejiji::API::Emoticons" do
         emoticon = Emoticon.new text: "foobaz"
         end_transaction
         
-        params = { description: "Awesome yoh!" }
-        put "/v1/emoticons/#{emoticon.uid}"
-        # Finish implementing this when a bit closer
+        params = { text: "foomoo", description: "Awesome yoh!" }
+        put "/v1/emoticons/#{emoticon.uid}", params
+        last_response.status.should == 200
+        hash = JSON.parse(last_response.body)
+        hash["uid"].should == emoticon.uid
+        hash["text"].should == params[:text]
+        hash["description"].should == params[:description]
       end
     end
   end

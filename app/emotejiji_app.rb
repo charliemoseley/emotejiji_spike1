@@ -1,5 +1,5 @@
-require 'app/models/init'
 require 'app/relationships/init'
+require 'app/models/init'
 require 'app/api/init'
 require 'app/views/init'
 

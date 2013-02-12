@@ -9,6 +9,8 @@ class Emoticon
   
   rule :all, functions: [Neo4j::Wrapper::Rule::Functions::Size.new]
   
+  has_n(:tags).to(Tag).relationship(EmoticonTagEdge)
+  
   def init_on_create(params = {})
     raise "params[:text] required" if params[:text].nil?
     self[:uid] = generate_uid
