@@ -39,6 +39,14 @@ describe "Neo4j::Tag" do
       it "should generate a random unique uid 10 characters in length" do
         @tag.uid.length.should == 10
       end
+      
+      # it "should prevent duplicates" do
+      #   start_transaction
+      #   @tag = Tag.new @params
+      #   end_transaction
+        
+      #   Tag.find(text: @params[:text]).count.should == 1
+      # end
     end
   end
   
